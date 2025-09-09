@@ -62,7 +62,7 @@ nav > .wraper {
 */
 
 header {
-    background-image: url("/Images/Mizu6.png");
+    background-image: url("Images/Mizu6.png");
     height: 120vh;
     background-position: center center;
     background-size: cover;
@@ -350,5 +350,6 @@ footer {
     font-style: normal;
 
 }
+
 
 
