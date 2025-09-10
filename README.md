@@ -1,7 +1,6 @@
 # 🌐 Portofolio Pribadi - Vestiapani
 
 [![Status Proyek](https://img.shields.io/badge/status-aktif-brightgreen)](https://github.com/vestiapani)
-[![Lisensi](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Repository ini berisi kode sumber untuk eksperimental website portofolio pribadi saya. Website ini dibangun dari awal menggunakan HTML, CSS, dan JavaScript untuk menampilkan profil, keahlian, dan proyek-proyek yang telah saya kerjakan.
 
