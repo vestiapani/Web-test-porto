@@ -31,7 +31,7 @@ Berikut adalah teknologi dan tools yang digunakan dalam pengembangan website ini
 
 Versi live dari website ini dapat diakses melalui tautan berikut:
 
-🔗 **[Lihat Langsung Websitenya!]([https://portotestpani.vercel.app/)]**
+🔗 **[Lihat Langsung Websitenya!](https://portotestpani.vercel.app/)**
 
 
 ---
