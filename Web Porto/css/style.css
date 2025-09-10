@@ -7,6 +7,7 @@ html, body {
     font-size: 16px;
     font-family: "Plus Jakarta Sans", sans-serif;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 .wraper {
     width: 1024px;
@@ -211,6 +212,13 @@ button.learn-more:active::before {
     text-align: center;
 }
 
+#statistic > .statnama {
+    padding-top: 5px;
+    font-size: 1rem;
+    font-weight: 800;
+    font-style: normal;
+}
+
 #statistic > .wrapper {
     padding: 50px;
     width: 80%;
@@ -230,6 +238,28 @@ button.learn-more:active::before {
     font-size: 3.5rem;
 }
 
+#js{
+    color:white
+}
+#js:hover {
+    color: yellow; /* warna ikon js berubah saat hover */
+}
+
+#css {
+    color: #fff;
+}
+
+#css:hover {
+    color: #3f65fc; /* warna ikon css berubah saat hover */
+}
+
+#laravel {
+    color: #fff;
+}
+
+#laravel:hover {
+    color: #ff2d20; /* warna ikon laravel berubah saat hover */
+}
 /*
 * Tentang saya
 */
@@ -299,6 +329,30 @@ button.learn-more:active::before {
     padding-right: 20px;
 }
 
+#ig {
+    color: #fff;
+}
+
+#ig:hover {
+    color: #E1306C; /* warna ikon instagram berubah saat hover */
+}
+
+#tt {
+    color: #fff;
+}
+
+#tt:hover {
+    color: #000000; /* warna ikon tiktok berubah saat hover */
+}
+
+#steam {
+    color: #fff;
+}
+
+#steam:hover {
+    color: #1058cc; /* warna ikon steam berubah saat hover */
+}
+
 /*
 * responsive
 */
@@ -334,6 +388,168 @@ button.learn-more:active::before {
         margin: 0px;
         margin-top: 20px;
     }
+
+    /* tablet */
+@media screen and (max-width: 768px) {
+    #contact > form > button {
+        width: 60%;
+        font-size: 14px;
+    }
+}
+
+/* hp */
+@media screen and (max-width: 480px) {
+    #contact > form > button {
+        width: 100%;
+        font-size: 10px;
+    }
+}
+
+}
+
+/* responsive hamburger menu */
+/* default: hamburger disembunyiin di desktop */
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #fff;
+}
+.footmenu {
+    display: none;
+  }
+/* tablet & hp */
+@media screen and (max-width: 780px) {
+    .hamburger {
+        display: block;
+        z-index: 1000;
+        position: relative;
+    }
+
+    .menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 100vh;
+        background-color: #f187a6;
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+        display: flex; 
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;      
+        padding: 100px 0 20px 0;
+        z-index: 999;
+    }
+
+    /* Kalau menu aktif → geser masuk */
+    .menu.active {
+        transform: translateX(0);
+    }
+
+    .menu ul {
+        flex-direction: column;
+        text-align: right;
+        padding-right: 30px;
+    }
+
+    .menu ul li {
+        margin: 15px 0;
+    }
+    
+    .footmenu {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/*
+* Get In Touch
+*/
+
+#contact {
+    background-image: url("../Images/mizu1.png");
+    color: #ffffff;
+    text-shadow:#f187a6 0 0 10px;
+    text-align: center;
+    padding: 50px 0px 50px 0px;
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    height: 120vh;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+#contact p {
+    max-width: 600px;  
+  margin: 0 auto;    
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 15px;
+}
+
+#contact > .bgop {
+    background-color: #EECAD5;
+    width: 100%;
+    height: 100%;
+    opacity: 0.47;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+#contact > h2,
+#contact > p,
+#contact > form {
+    position: relative;
+    z-index: 1;
+}
+
+#contact > form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    padding-top: 70px;
+}
+
+#contact > form > input, #contact > form > textarea {
+    margin: 10px 0px;
+    padding: 10px;
+    border: none;
+    border-radius: 13px;
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#contact > form > button {
+    width: 40%;
+    margin: auto;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff0f0;
+    color: #f187a6;
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    letter-spacing: 5px;
+    cursor: pointer;
+}
+
+#contact > form > button:hover {
+    background-color: #ffe9e9;
+}
+
+#contact > form > button:active {
+    background-color: #ffd6d6;
 }
 
 /*
@@ -348,10 +564,4 @@ footer {
     font-family: Plus Jakarta Sans, sans-serif;
     font-weight: 800;
     font-style: normal;
-
 }
-
-
-
-
-
