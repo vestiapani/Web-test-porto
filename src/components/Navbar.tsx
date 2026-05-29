@@ -57,7 +57,7 @@ export default function Navbar() {
           onClick={() => setIsMenuOpen(false)}
         >
           <Image
-            src="/logo.png"
+            src="/icon.png"
             alt="Vestiapani Logo"
             width={35}
             height={35}

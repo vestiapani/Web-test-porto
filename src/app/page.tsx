@@ -204,7 +204,7 @@ export default async function Home() {
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <Image
-                    src="/logo.png"
+                    src="/icon.png"
                     alt="Vestiapani Logo"
                     width={45}
                     height={45}
