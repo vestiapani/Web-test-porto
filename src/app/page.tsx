@@ -177,8 +177,10 @@ export default async function Home() {
                   title={project.title}
                   description={project.description}
                   techStack={project.tech_stack || []}
+                  imageUrl={project.image_url}
                   githubUrl={project.github_url}
                   liveUrl={project.live_url}
+                  
                 />
               ))}
               {(!projects || projects.length === 0) && (
