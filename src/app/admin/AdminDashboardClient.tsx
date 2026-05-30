@@ -14,17 +14,16 @@ interface AdminDashboardClientProps {
 export default function AdminDashboardClient({
   initialProjects: projects,
 }: AdminDashboardClientProps) {
-  // State untuk kontrol modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState<Project | null>(null);
 
   const openAddModal = () => {
-    setProjectToEdit(null); // Null artinya tambah baru
+    setProjectToEdit(null);
     setIsModalOpen(true);
   };
 
   const openEditModal = (project: Project) => {
-    setProjectToEdit(project); // Isi data artinya edit
+    setProjectToEdit(project);
     setIsModalOpen(true);
   };
 
@@ -34,32 +33,32 @@ export default function AdminDashboardClient({
 
   return (
     <>
-      {/* Tampilkan modal jika state terbuka */}
       {isModalOpen && (
         <ProjectFormModal onClose={closeModal} projectToEdit={projectToEdit} />
       )}
 
       <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         {/* HEADER SECTION DASHBOARD */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white/10 backdrop-blur-xl p-8 rounded-[2rem] shadow-lg shadow-black/5 border border-white/20 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white/20 backdrop-blur-2xl p-8 rounded-[2rem] shadow-xl shadow-black/5 border border-white/40 relative overflow-hidden">
           {/* Dekorasi Blob Kecil */}
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#f187a6]/20 rounded-full blur-3xl pointer-events-none"></div>
 
           <div className="relative z-10">
-            <h1 className="text-3xl font-extrabold text-gray-950 mb-1">
+            <h1 className="text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
               Manajemen Konten
             </h1>
-            <p className="text-gray-700 font-medium leading-relaxed">
+            <p className="text-slate-600 font-medium leading-relaxed">
               Mengelola{" "}
-              <span className="text-[#f187a6] font-bold text-lg">
+              <span className="text-[#f187a6] font-bold text-lg px-1">
                 {projects?.length || 0}
               </span>{" "}
               portofolio aktif Anda.
             </p>
           </div>
+
           <button
             onClick={openAddModal}
-            className="relative z-10 flex items-center gap-3 bg-gray-950 text-white px-6 py-3.5 rounded-2xl font-semibold hover:bg-gray-800 transition shadow-md hover:-translate-y-0.5 active:translate-y-0"
+            className="relative z-10 flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-900/80 backdrop-blur-xl hover:bg-slate-800 text-white border border-slate-700/50 rounded-2xl font-bold transition-all shadow-lg hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-1 active:translate-y-0"
           >
             <PlusCircle size={20} />
             Tambah Proyek
@@ -67,19 +66,21 @@ export default function AdminDashboardClient({
         </div>
 
         {/* TABEL PROYEK */}
-        <div className="bg-white/10 backdrop-blur-xl rounded-[2rem] shadow-lg shadow-black/5 border border-white/20 overflow-hidden">
+        <div className="bg-white/20 backdrop-blur-2xl rounded-[2rem] shadow-xl shadow-black/5 border border-white/40 overflow-hidden">
           {/* Search Bar */}
-          <div className="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/20">
-            <h2 className="text-xl font-bold text-gray-950">Daftar Konten</h2>
+          <div className="p-6 md:p-8 border-b border-white/30 flex justify-between items-center bg-white/30">
+            <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
+              Daftar Konten
+            </h2>
             <div className="relative hidden md:block">
               <Search
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
               />
               <input
                 type="text"
                 placeholder="Cari proyek..."
-                className="pl-12 pr-4 py-3.5 bg-white/50 border border-white/30 rounded-xl text-sm w-80 focus:border-[#f187a6] focus:bg-white/70 focus:ring-4 focus:ring-[#f187a6]/10 transition-all outline-none text-gray-900 placeholder:text-gray-500 shadow-inner"
+                className="pl-12 pr-4 py-3.5 bg-white/30 border border-white/40 backdrop-blur-md rounded-2xl text-slate-900 focus:border-[#f187a6] focus:bg-white/50 focus:ring-4 focus:ring-[#f187a6]/20 transition-all outline-none placeholder:text-slate-500 font-medium shadow-sm w-80"
               />
             </div>
           </div>
@@ -87,7 +88,7 @@ export default function AdminDashboardClient({
           <div className="overflow-x-auto h-[60vh] overflow-y-auto">
             <table className="w-full text-left border-collapse sticky top-0">
               <thead>
-                <tr className="border-b border-white/10 text-xs text-gray-600 uppercase tracking-widest bg-white/5 backdrop-blur-sm sticky top-0 z-20 shadow-inner">
+                <tr className="border-b border-white/30 text-xs text-slate-500 uppercase tracking-widest bg-white/40 backdrop-blur-md sticky top-0 z-20 shadow-sm">
                   <th className="p-6 font-bold min-w-[300px]">
                     Info & Preview
                   </th>
@@ -95,43 +96,40 @@ export default function AdminDashboardClient({
                   <th className="p-6 font-bold text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10 relative z-10">
+              <tbody className="divide-y divide-white/20 relative z-10">
                 {projects?.map((project) => (
                   <tr
                     key={project.id}
-                    className="hover:bg-white/20 transition-colors"
+                    className="hover:bg-white/30 transition-colors group/row"
                   >
-                    {/* KOLOM INFO & GAMBAR */}
                     <td className="p-6">
                       <div className="flex items-start gap-4">
-                        {/* Thumbnail Kecil */}
-                        <div className="relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-white/20 border border-white/20 shadow-sm">
+                        <div className="relative w-24 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-white/30 border border-white/40 shadow-sm">
                           {project.image_url ? (
                             <Image
                               src={project.image_url}
                               alt={project.title}
                               fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500"
-                              sizes="80px"
+                              className="object-cover group-hover/row:scale-110 transition-transform duration-500"
+                              sizes="96px"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs bg-gray-900/10">
+                            <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs bg-slate-900/5 font-semibold">
                               No Img
                             </div>
                           )}
                         </div>
                         <div>
-                          <div className="font-bold text-gray-950 text-base mb-1">
+                          <div className="font-extrabold text-slate-900 text-base mb-1 group-hover/row:text-[#f187a6] transition-colors">
                             {project.title}
                           </div>
-                          <div className="text-sm text-gray-700 line-clamp-2 max-w-sm leading-relaxed">
+                          <div className="text-sm text-slate-600 line-clamp-2 max-w-sm leading-relaxed font-medium">
                             {project.description}
                           </div>
                         </div>
                       </div>
                     </td>
 
-                    {/* KOLOM TECH STACK - PERBAIKAN DI SINI */}
                     <td className="p-6">
                       <div className="flex flex-wrap gap-2 max-w-sm">
                         {(project.tech_stack || [])
@@ -139,25 +137,24 @@ export default function AdminDashboardClient({
                           .map((tech: string, i: number) => (
                             <span
                               key={i}
-                              className="px-3 py-1.5 bg-[#f187a6] text-white text-xs font-semibold rounded-lg shadow-sm backdrop-blur-sm shadow-black/10"
+                              className="px-3 py-1.5 bg-white/50 border border-white/60 text-slate-700 text-xs font-bold rounded-xl shadow-sm backdrop-blur-sm"
                             >
                               {tech}
                             </span>
                           ))}
                         {(project.tech_stack || []).length > 3 && (
-                          <span className="px-3 py-1.5 bg-white/30 text-gray-600 text-xs font-semibold rounded-lg">
+                          <span className="px-3 py-1.5 bg-white/30 border border-white/30 text-slate-500 text-xs font-bold rounded-xl shadow-sm">
                             +{(project.tech_stack || []).length - 3}
                           </span>
                         )}
                       </div>
                     </td>
 
-                    {/* KOLOM AKSI */}
                     <td className="p-6 text-right whitespace-nowrap">
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => openEditModal(project)}
-                          className="text-gray-600 hover:text-blue-600 hover:bg-white/40 transition p-2.5 rounded-xl border border-transparent hover:border-white/30 shadow-sm active:translate-y-0 hover:-translate-y-0.5"
+                          className="text-slate-500 hover:text-blue-600 bg-white/30 hover:bg-white/60 transition-all p-2.5 rounded-xl border border-white/40 shadow-sm active:scale-95"
                         >
                           <Edit size={18} strokeWidth={2.5} />
                         </button>
@@ -175,7 +172,7 @@ export default function AdminDashboardClient({
                         >
                           <button
                             type="submit"
-                            className="text-gray-600 hover:text-red-600 hover:bg-white/40 transition p-2.5 rounded-xl border border-transparent hover:border-white/30 shadow-sm active:translate-y-0 hover:-translate-y-0.5"
+                            className="text-slate-500 hover:text-red-600 bg-white/30 hover:bg-white/60 transition-all p-2.5 rounded-xl border border-white/40 shadow-sm active:scale-95"
                           >
                             <Trash2 size={18} strokeWidth={2.5} />
                           </button>
@@ -185,24 +182,23 @@ export default function AdminDashboardClient({
                   </tr>
                 ))}
 
-                {/* STATE KOSONG */}
                 {(!projects || projects.length === 0) && (
                   <tr>
                     <td
                       colSpan={3}
-                      className="p-20 text-center text-gray-600 bg-white/5"
+                      className="p-20 text-center text-slate-500 bg-white/10"
                     >
-                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 mb-6 shadow-inner border border-white/20">
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/40 mb-6 shadow-sm border border-white/50">
                         <Layers3
                           size={32}
                           strokeWidth={1.5}
                           className="text-[#f187a6]"
                         />
                       </div>
-                      <p className="text-lg font-medium mb-2 leading-relaxed">
+                      <p className="text-lg font-bold mb-2 text-slate-900">
                         Belum ada portofolio
                       </p>
-                      <p className="text-sm">
+                      <p className="text-sm font-medium">
                         Klik tombol "Tambah Proyek" di atas untuk memulai
                         pencatatan.
                       </p>

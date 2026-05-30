@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-// Tambahkan User, Code2, Send, dan ShieldCheck untuk ikon menu
-import { Menu, X, User, Code2, Send, ShieldCheck } from "lucide-react";
+import { Menu, X, User, Code2, Send } from "lucide-react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +12,7 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Mencegah scroll saat menu mobile terbuka (opsional untuk desain ini, tapi bagus untuk UX)
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -24,7 +24,6 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-  // Data array untuk menu agar lebih rapi saat di-map
   const navItems = [
     {
       title: "Tentang Saya",
@@ -47,9 +46,9 @@ export default function Navbar() {
   ];
 
   return (
-    // GLASS NAV
+    // GLASS NAV UTAMA
     <nav className="sticky top-0 z-50 bg-white/10 backdrop-blur-lg text-gray-900 shadow-sm border-b border-white/20 selection:bg-[#f187a6] selection:text-white">
-      <div className="w-full px-6 md:px-12 lg:px-16 py-4 flex justify-between items-center relative z-10 h-[73px]">
+      <div className="w-full px-6 md:px-12 lg:px-16 flex justify-between items-center relative z-20 h-[73px]">
         {/* LOGO SECTION */}
         <Link
           href="/"
@@ -94,54 +93,44 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* --- Overlay Background Samar (opsional agar fokus ke menu) --- */}
       {isMenuOpen && (
         <div
-          className="fixed left-0 right-0 top-[73px] h-[calc(100vh-73px)] z-40 bg-gray-950/20 backdrop-blur-sm md:hidden transition-opacity"
-          onClick={toggleMenu}
-        ></div>
+          className="fixed inset-0 top-[73px] bg-gray-900/10 backdrop-blur-sm z-10 md:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        />
       )}
 
-      {/* Mobile Menu Drawer (GLASS) - Desain Baru Premium */}
+      {/* --- DESAIN MOBILE MENU (Dropdown Simpel & Elegan) --- */}
       <div
-        className={`fixed top-[73px] right-0 z-40 w-full max-w-[320px] h-[calc(100vh-73px)] bg-white/40 backdrop-blur-3xl border-l border-white/40 p-6 shadow-2xl transition-transform duration-500 ease-out md:hidden flex flex-col justify-between overflow-y-auto ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`absolute top-full left-0 w-full bg-white/60 backdrop-blur-xl border-b border-white/40 shadow-xl transition-all duration-300 ease-in-out md:hidden z-20 overflow-hidden origin-top ${
+          isMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div>
-          {/* Mini Header di Menu Mobile */}
-          <div className="mb-8 pb-6 border-b border-white/20">
-            <span className="text-xs font-black tracking-widest text-[#f187a6] uppercase mb-2 block">
-              Menu Navigasi
-            </span>
-            <h3 className="text-2xl font-extrabold text-gray-950 tracking-tight">
-              Eksplorasi Web
-            </h3>
-          </div>
+        <div className="flex flex-col px-6 py-2">
+          {navItems.map((item, index) => (
+            <Link
+              key={index}
+              href={`/#${item.href}`}
+              onClick={toggleMenu}
+              className="flex items-center gap-4 py-4 border-b border-white/30 last:border-0 group"
+            >
+              {/* Ikon Box Minimalis */}
+              <div className="p-2.5 bg-white/40 rounded-xl text-gray-500 group-hover:text-[#f187a6] group-hover:bg-white/70 shadow-sm transition-all duration-300">
+                <item.icon size={20} strokeWidth={2.5} />
+              </div>
 
-          {/* Links Navigasi (Glass Cards) */}
-          <div className="flex flex-col gap-3">
-            {navItems.map((item, index) => (
-              <Link
-                key={index}
-                href={`/#${item.href}`}
-                onClick={toggleMenu}
-                className="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/70 bg-white/30 transition-all duration-300 border border-white/30 shadow-sm group hover:scale-[1.02] active:scale-95"
-              >
-                <div className="p-3 bg-white/70 rounded-xl text-gray-400 group-hover:text-[#f187a6] group-hover:bg-white shadow-inner transition-colors">
-                  <item.icon size={22} strokeWidth={2} />
-                </div>
-                <div>
-                  <div className="text-base font-bold text-gray-900 group-hover:text-[#f187a6] transition-colors">
-                    {item.title}
-                  </div>
-                  <div className="text-[11px] text-gray-500 font-medium mt-0.5">
-                    {item.desc}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+              {/* Teks Navigasi */}
+              <div className="flex flex-col">
+                <span className="text-base font-bold text-gray-900 group-hover:text-[#f187a6] transition-colors">
+                  {item.title}
+                </span>
+                <span className="text-xs text-gray-500 font-medium mt-0.5">
+                  {item.desc}
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
