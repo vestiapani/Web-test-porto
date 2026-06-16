@@ -55,7 +55,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://instagram.com/vestiapani"
+                href="https://instagram.com/vestiapani_"
                 target="_blank"
                 rel="noreferrer"
                 className="p-3 bg-white/40 border border-white/30 rounded-xl text-slate-600 hover:text-[#f187a6] hover:bg-[#f187a6]/10 hover:border-[#f187a6]/30 transition-all shadow-sm group backdrop-blur-md"
