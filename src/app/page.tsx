@@ -54,11 +54,10 @@ export default function Home() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=1500",
+          end: "+=300",
           pin: true,
           anticipatePin: 1,
           scrub: 0.2,
-          invalidateOnRefresh: false,
           fastScrollEnd: true,
           preventOverlaps: true,
         },
@@ -197,7 +196,7 @@ export default function Home() {
       <div className="bg-[#1a1116] w-full">
         <div
           ref={containerRef}
-          className="relative text-white w-full h-screen overflow-hidden"
+          className="relative text-white w-full h-[100dvh] overflow-hidden"
           style={{ willChange: "transform" }}
         >
           <div className="absolute inset-0 bg-[linear-gradient(rgba(244,114,182,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(244,114,182,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
