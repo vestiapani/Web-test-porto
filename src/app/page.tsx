@@ -13,6 +13,7 @@ import { Globe, Github, Mail, Sparkles, Heart, Palette } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
@@ -42,7 +43,6 @@ export default function Home() {
     };
     window.addEventListener("orientationchange", setStableVh);
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("orientationchange", setStableVh);
       window.removeEventListener("resize", handleResize);
