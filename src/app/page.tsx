@@ -101,12 +101,6 @@ export default function Home() {
         ease: "sine.inOut",
       });
 
-      const handleResize = () => ScrollTrigger.refresh();
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
     },
     { scope: containerRef },
   );
@@ -203,8 +197,8 @@ export default function Home() {
       <div className="bg-[#1a1116] w-full">
         <div
           ref={containerRef}
-          style={{ willChange: "transform", height: "var(--vh-fixed, 100dvh)" }}
-          className="relative text-white w-full overflow-hidden"
+          className="relative text-white w-full h-screen overflow-hidden"
+          style={{ willChange: "transform" }}
         >
           <div className="absolute inset-0 bg-[linear-gradient(rgba(244,114,182,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(244,114,182,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
           <div
