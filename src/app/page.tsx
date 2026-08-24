@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -13,6 +13,7 @@ import { Globe, Github, Mail, Sparkles, Heart, Palette } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
+  // Prevent ScrollTrigger from recalculating on mobile address-bar show/hide
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
@@ -25,6 +26,28 @@ export default function Home() {
   const text3Ref = useRef<HTMLDivElement>(null);
 
   const { t, lang, toggleLang } = useLanguage();
+
+  useEffect(() => {
+    const setStableVh = () => {
+      document.documentElement.style.setProperty(
+        "--vh-fixed",
+        `${window.innerHeight}px`,
+      );
+    };
+    setStableVh();
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(setStableVh, 200);
+    };
+    window.addEventListener("orientationchange", setStableVh);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("orientationchange", setStableVh);
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimeout);
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -88,7 +111,10 @@ export default function Home() {
   );
 
   return (
-    <main className="min-h-[100dvh] bg-[#fffafd] text-pink-950 selection:bg-pink-300 selection:text-pink-950 font-sans">
+    <main
+      style={{ minHeight: "var(--vh-fixed, 100dvh)" }}
+      className="bg-[#fffafd] text-pink-950 selection:bg-pink-300 selection:text-pink-950 font-sans"
+    >
       <SplashScreen />
 
       {/* TOMBOL GANTI BAHASA */}
@@ -102,7 +128,8 @@ export default function Home() {
 
       {/* 1. HERO SECTION */}
       <section
-        className="relative min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 pt-10 overflow-hidden z-10"
+        style={{ minHeight: "var(--vh-fixed, 100dvh)" }}
+        className="relative flex flex-col items-center justify-center text-center px-4 pt-10 overflow-hidden z-10"
         id="home"
       >
         <div className="absolute inset-0 bg-[radial-gradient(#fbcfe8_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-70 -z-10"></div>
@@ -175,8 +202,8 @@ export default function Home() {
       <div className="bg-[#1a1116] w-full">
         <div
           ref={containerRef}
-          style={{ willChange: "transform" }}
-          className="relative h-[100dvh] text-white w-full overflow-hidden"
+          style={{ willChange: "transform", height: "var(--vh-fixed, 100dvh)" }}
+          className="relative text-white w-full overflow-hidden"
         >
           <div className="absolute inset-0 bg-[linear-gradient(rgba(244,114,182,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(244,114,182,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
           <div
