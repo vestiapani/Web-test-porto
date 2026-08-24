@@ -34,8 +34,9 @@ export default function Home() {
           start: "top top",
           end: "+=300%",
           pin: true,
-          scrub: 1,
+          scrub: 0.5,
           invalidateOnRefresh: true,
+          fastScrollEnd: true,
         },
       });
 
@@ -89,6 +90,8 @@ export default function Home() {
   return (
     <main className="min-h-[100dvh] bg-[#fffafd] text-pink-950 selection:bg-pink-300 selection:text-pink-950 font-sans">
       <SplashScreen />
+
+      {/* TOMBOL GANTI BAHASA */}
       <button
         onClick={toggleLang}
         className="fixed top-20 right-4 md:top-8 md:right-12 z-40 px-4 py-2 rounded-full bg-white/40 backdrop-blur-md border border-pink-200/50 text-pink-800 font-bold text-xs tracking-widest shadow-lg shadow-pink-500/10 hover:bg-pink-100 transition-all active:scale-95 flex items-center gap-2"
@@ -172,6 +175,7 @@ export default function Home() {
       <div className="bg-[#1a1116] w-full">
         <div
           ref={containerRef}
+          style={{ willChange: "transform" }}
           className="relative h-[100dvh] text-white w-full overflow-hidden"
         >
           <div className="absolute inset-0 bg-[linear-gradient(rgba(244,114,182,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(244,114,182,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
@@ -247,8 +251,8 @@ export default function Home() {
                   alt="Akiyama Mizuki"
                   className="w-full h-full object-cover object-top"
                 />
-                <div className="anime-particle absolute top-6 left-6 w-16 h-16 bg-pink-400/50 rounded-full blur-xl"></div>
-                <div className="anime-particle absolute bottom-10 right-6 w-20 h-20 bg-rose-300/50 rounded-full blur-xl"></div>
+                <div className="anime-particle absolute top-6 left-6 w-16 h-16 bg-pink-400/50 rounded-full blur-lg md:blur-xl"></div>
+                <div className="anime-particle absolute bottom-10 right-6 w-20 h-20 bg-rose-300/50 rounded-full blur-lg md:blur-xl"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1116]/90 via-transparent to-transparent"></div>
               </div>
             </div>
