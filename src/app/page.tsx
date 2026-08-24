@@ -13,6 +13,7 @@ import { Globe, Github, Mail, Sparkles, Heart, Palette } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
@@ -32,6 +33,7 @@ export default function Home() {
         "--vh-fixed",
         `${window.innerHeight}px`,
       );
+      ScrollTrigger.refresh();
     };
     setStableVh();
     let resizeTimeout: ReturnType<typeof setTimeout>;
@@ -99,7 +101,6 @@ export default function Home() {
         stagger: 0.4,
         ease: "sine.inOut",
       });
-
     },
     { scope: containerRef },
   );
