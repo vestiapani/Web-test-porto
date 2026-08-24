@@ -1,45 +1,66 @@
-# 🌐 Vestiapani Portfolio OS — V2
+# 🌸 Vestiapani Portfolio
 
 [![Status Proyek](https://img.shields.io/badge/status-aktif-brightgreen)](#)
 [![Framework](https://img.shields.io/badge/framework-Next.js%2015-000000?logo=nextdotjs)](https://nextjs.org/)
-[![Database & Auth](https://img.shields.io/badge/backend-Supabase-3ECF8E?logo=supabase)](https://supabase.com/)
 [![Styling](https://img.shields.io/badge/styling-Tailwind%20CSS-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
+[![Animation](https://img.shields.io/badge/animation-GSAP-88CE02?logo=greensock)](https://gsap.com/)
 
-Website portofolio personal *full-stack* modern yang dibangun dengan fokus pada performa tinggi, kedalaman estetika visual, dan manajemen konten yang dinamis. Proyek ini mengimplementasikan prinsip desain *Glassmorphism* premium yang dipadukan dengan aksen *interactive 3D shader background*.
+Website portofolio personal dengan nuansa visual pink/soft aesthetic bernuansa anime, dilengkapi animasi scroll yang immersive menggunakan GSAP ScrollTrigger. Dukungan dwi-bahasa (Indonesia/Inggris) dan tampilan proyek yang dinamis menjadikan situs ini medium presentasi karya yang ekspresif sekaligus profesional.
 
 ---
 
 ## ✨ Fitur Utama
 
-- **Premium Glassmorphism UI/UX**: Antarmuka berbasis panel mika transparan dengan optimasi kontras tinggi, memberikan kesan bersih, futuristik, dan profesional.
-- **Dynamic 3D Shader Background**: Mengintegrasikan komponen *Silk material shader* bertenaga *WebGl* melalui *React Three Fiber* untuk menghasilkan efek latar belakang sutra yang fluid dan interaktif.
-- **Full-Stack CRUD Dashboard**: Panel manajemen admin privat yang tangguh untuk menambahkan, memperbarui, dan menghapus proyek secara *real-time* tanpa perlu menyentuh kode program.
-- **Secured Server-Side Authentication**: Proteksi rute admin yang ketat memanfaatkan Next.js Middleware dan proteksi basis data menggunakan Supabase *Row Level Security* (RLS).
-- **Self-Hosted Cloud Storage**: Fitur penanganan unggahan berkas (*file upload*) gambar proyek secara mandiri yang terintegrasi langsung dengan Supabase Storage Bucket.
-- **Fluid App-Like Responsive Navigation**: Sistem navigasi adaptif ujung-ke-ujung (*full-width*) di desktop yang bertransisi menjadi *fluid drawer navigation menu* interaktif pada perangkat seluler.
+- **GSAP ScrollTrigger Storytelling**: Section pinned dengan timeline animasi bertahap — teks dan mockup gambar bertransisi secara sinematik mengikuti posisi scroll pengguna.
+- **Dwi-Bahasa (ID/EN)**: Sistem toggle bahasa real-time menggunakan React Context, mengubah seluruh konten teks tanpa reload halaman.
+- **Desain Estetika Custom**: Dot-grid pattern, elemen dekoratif mengambang (*floating elements*), tipografi vertikal ala Jepang, dan palet warna pink/rose yang konsisten di seluruh section.
+- **Galeri Proyek Dinamis**: Daftar proyek dirender dari data terstruktur (`projects.json`), memudahkan penambahan portofolio baru tanpa mengubah komponen.
+- **Splash Screen & Footer Kustom**: Pengalaman *loading* awal yang halus serta footer yang konsisten dengan tema keseluruhan.
+- **Fully Responsive**: Layout menyesuaikan dari mobile hingga desktop, termasuk penyesuaian arah teks dan ukuran mockup pada section sticky.
+- **Aksesibilitas**: Fokus ring pada elemen interaktif (`focus-visible`) untuk navigasi keyboard yang lebih baik.
 
 ---
 
 ## 🛠️ Arsitektur Teknologi
 
-Aplikasi ini dibangun menggunakan ekosistem teknologi mutakhir:
+- **Core Framework:** Next.js (App Router) & React
+- **Language:** TypeScript
+- **Styling Engine:** Tailwind CSS
+- **Animasi:** GSAP + ScrollTrigger + `@gsap/react` (`useGSAP` hook)
+- **Ikon:** Lucide React
+- **Deployment Platform:** Vercel
 
-- **Core Framework:** Next.js (App Router, Asynchronous Server Components) & React
-- **Language:** TypeScript (Type-safe configuration)
-- **Styling Engine:** Tailwind CSS & Lucide Icons
-- **Graphics Engine:** Three.js & @react-three/fiber
-- **Backend-as-a-Service:** Supabase (PostgreSQL, SSR Auth, Blob Storage, RLS Guard)
-- **Deployment Platform:** Vercel Production Environment
+---
+
+## 📁 Struktur Proyek
+
+```
+src/
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx          # Halaman utama (hero, sticky scroll, skills, projects, contact)
+├── components/
+│   ├── Footer.tsx
+│   ├── Navbar.tsx
+│   ├── ProjectCard.tsx
+│   └── SplashScreen.tsx
+├── context/
+│   └── LanguageContext.tsx   # Provider untuk toggle bahasa ID/EN
+└── data/
+    ├── dictionaries.ts       # Kamus teks ID/EN
+    └── projects.json         # Data proyek yang ditampilkan
+```
 
 ---
 
 ## ⚙️ Langkah Instalasi Lokal
 
-Pastikan Anda telah menginstal **Node.js v18+** dan memiliki akun **Supabase** yang aktif sebelum memulai instalasi.
+Pastikan Anda telah menginstal **Node.js v18+** sebelum memulai instalasi.
 
 ### 1. Kloning Repositori
 ```bash
-git clone [https://github.com/vestiapani/Web-test-porto.git](https://github.com/vestiapani/Web-test-porto.git)
+git clone https://github.com/vestiapani/Web-test-porto.git
 cd Web-test-porto
 ```
 
@@ -48,14 +69,7 @@ cd Web-test-porto
 npm install
 ```
 
-### 3. Konfigurasi Environment Variables
-Buat berkas `.env.local` pada direktori utama proyek, lalu lengkapi kredensial Supabase Anda:
-```env
-NEXT_PUBLIC_SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supabase.co)
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anonymous-key-here
-```
-
-### 4. Menjalankan Server Pengembangan
+### 3. Menjalankan Server Pengembangan
 ```bash
 npm run dev
 ```
@@ -63,23 +77,15 @@ Buka [http://localhost:3000](http://localhost:3000) pada peramban Anda untuk mel
 
 ---
 
-## 🔒 Konfigurasi Keamanan Basis Data (SQL)
+## ✍️ Menambahkan Proyek Baru
 
-Tabel `projects` diamankan menggunakan kebijakan Row Level Security (RLS) berikut pada PostgreSQL:
+Cukup tambahkan entri baru pada `src/data/projects.json` sesuai skema yang sudah ada — komponen `ProjectCard` akan otomatis merender proyek baru tersebut di section **Projects**.
 
-```sql
-ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+## 🌍 Menambahkan/Mengubah Teks Terjemahan
 
--- Izinkan akses baca data secara publik
-CREATE POLICY "Public Read Access" ON projects FOR SELECT USING (true);
-
--- Batasi operasi mutasi data (CUD) hanya untuk admin terautentikasi
-CREATE POLICY "Admin Insert Guard" ON projects FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Admin Update Guard" ON projects FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin Delete Guard" ON projects FOR DELETE USING (auth.role() = 'authenticated');
-```
+Semua string teks yang ditampilkan (hero, sticky section, skills, projects, contact) diatur pada `src/data/dictionaries.ts`, dikonsumsi melalui `useLanguage()` dari `LanguageContext`.
 
 ---
 
-Didesain dan dikembangkan dengan tingkat ketelitian tinggi oleh **Vestiapani**.  
+Didesain dan dikembangkan dengan tingkat ketelitian tinggi oleh **Vestiapani**.
 *Hak Cipta &copy; 2026. Seluruh hak cipta dilindungi undang-undang.*

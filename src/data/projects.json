@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "MangNime Platform",
+    "description": "Platform streaming anime gratis tanpa iklan.",
+    "techStack": ["React JS","Next.js", "JavaScript", "Tailwind CSS","Supabase"],
+    "imageUrl": "/images/Mangnime.png",
+    "link": "https://mangnime.my.id"
+  },
+  {
+    "id": "2",
+    "title": "Kana Master",
+    "description": "Tempat belajar bahasa jepang tingkat dasar.",
+    "techStack": ["React JS", "Typescipt", "Shadcn-UI","Lucide-Icons"],
+    "imageUrl": "/images/Kana Master.png",
+    "link": "https://kana-master-ten.vercel.app/"
+  },
+  {
+    "id": "3",
+    "title": "F1 Pitwall + Steering Wheel",
+    "description": "Aplikasi untuk melihat data telemtry game F1 dan kontrol dengan smartphone.",
+    "techStack": ["JavaScript","VigemBus","Grandle","Electron","Node.js", "Tailwind CSS"],
+    "imageUrl": "/images/PitWall.png",
+    "link": "https://racingpitwall.vercel.app/"
+  }
+]
