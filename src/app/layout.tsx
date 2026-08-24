@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Vestiapani Portofolio",
   description: "Portofolio Vestiapani.",
   icons: {
-    icon: "app/icon.png",
+    icon: "/icon.png",
   },
 };
 

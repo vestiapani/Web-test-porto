@@ -13,7 +13,7 @@ import { Globe, Github, Mail, Sparkles, Heart, Palette } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.normalizeScroll(true);
+  var scrollNormalizer = ScrollTrigger.normalizeScroll(true);
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
@@ -46,12 +46,13 @@ export default function Home() {
 
     let normalizeEnabled = true;
     const handleScrollForPTR = () => {
+      if (!scrollNormalizer) return;
       const atTop = window.scrollY <= 0;
       if (atTop && normalizeEnabled) {
-        ScrollTrigger.normalizeScroll(false);
+        scrollNormalizer.disable();
         normalizeEnabled = false;
       } else if (!atTop && !normalizeEnabled) {
-        ScrollTrigger.normalizeScroll(true);
+        scrollNormalizer.enable();
         normalizeEnabled = true;
       }
     };
