@@ -43,9 +43,28 @@ export default function Home() {
     };
     window.addEventListener("orientationchange", setStableVh);
     window.addEventListener("resize", handleResize);
+
+    let normalizeEnabled = true;
+    const handleScrollForPTR = () => {
+      const atTop = window.scrollY <= 0;
+      if (atTop && normalizeEnabled) {
+        ScrollTrigger.normalizeScroll(false);
+        normalizeEnabled = false;
+      } else if (!atTop && !normalizeEnabled) {
+        ScrollTrigger.normalizeScroll(true);
+        normalizeEnabled = true;
+      }
+    };
+    window.addEventListener("scroll", handleScrollForPTR, { passive: true });
+    window.addEventListener("touchstart", handleScrollForPTR, {
+      passive: true,
+    });
+
     return () => {
       window.removeEventListener("orientationchange", setStableVh);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScrollForPTR);
+      window.removeEventListener("touchstart", handleScrollForPTR);
       clearTimeout(resizeTimeout);
     };
   }, []);

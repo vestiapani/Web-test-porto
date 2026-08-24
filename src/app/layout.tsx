@@ -12,8 +12,10 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "Vestiapani Portofolio",
-  description:
-    "Portofolio Vestiapani.",
+  description: "Portofolio Vestiapani.",
+  icons: {
+    icon: "app/icon.png",
+  },
 };
 
 export default function RootLayout({
