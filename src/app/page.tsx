@@ -13,7 +13,6 @@ import { Globe, Github, Mail, Sparkles, Heart, Palette } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
-  // Prevent ScrollTrigger from recalculating on mobile address-bar show/hide
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
@@ -57,6 +56,8 @@ export default function Home() {
           start: "top top",
           end: "+=300%",
           pin: true,
+          pinType: "transform",
+          anticipatePin: 1,
           scrub: 0.5,
           invalidateOnRefresh: true,
           fastScrollEnd: true,
