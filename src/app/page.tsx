@@ -54,11 +54,11 @@ export default function Home() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=300%",
+          end: "+=1500",
           pin: true,
           anticipatePin: 1,
           scrub: 0.2,
-          invalidateOnRefresh: true,
+          invalidateOnRefresh: false,
           fastScrollEnd: true,
           preventOverlaps: true,
         },

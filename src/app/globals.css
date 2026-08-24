@@ -11,3 +11,9 @@
 .animate-float-delayed {
   animation: float 6s ease-in-out 3s infinite;
 }
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
