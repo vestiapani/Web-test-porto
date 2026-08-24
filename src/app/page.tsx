@@ -56,11 +56,11 @@ export default function Home() {
           start: "top top",
           end: "+=300%",
           pin: true,
-          pinType: "transform",
           anticipatePin: 1,
-          scrub: 0.5,
+          scrub: 0.2,
           invalidateOnRefresh: true,
           fastScrollEnd: true,
+          preventOverlaps: true,
         },
       });
 
