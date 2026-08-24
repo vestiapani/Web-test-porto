@@ -91,7 +91,7 @@ export default function Home() {
       <SplashScreen />
       <button
         onClick={toggleLang}
-        className="fixed top-6 right-6 md:top-8 md:right-12 z-[100] px-4 py-2 rounded-full bg-white/40 backdrop-blur-md border border-pink-200/50 text-pink-800 font-bold text-xs tracking-widest shadow-lg shadow-pink-500/10 hover:bg-pink-100 transition-all active:scale-95 flex items-center gap-2"
+        className="fixed top-20 right-4 md:top-8 md:right-12 z-40 px-4 py-2 rounded-full bg-white/40 backdrop-blur-md border border-pink-200/50 text-pink-800 font-bold text-xs tracking-widest shadow-lg shadow-pink-500/10 hover:bg-pink-100 transition-all active:scale-95 flex items-center gap-2"
       >
         <Globe size={14} />
         {lang === "id" ? "ID" : "EN"}
