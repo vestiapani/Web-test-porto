@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -11,11 +11,7 @@ import ProjectCard from "@/components/ProjectCard";
 import projectsData from "@/data/projects.json";
 import { Globe, Github, Mail, Sparkles, Heart, Palette } from "lucide-react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.normalizeScroll(true);
-  ScrollTrigger.config({ ignoreMobileResize: true });
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,41 +23,21 @@ export default function Home() {
 
   const { t, lang, toggleLang } = useLanguage();
 
-  useEffect(() => {
-    const setStableVh = () => {
-      document.documentElement.style.setProperty(
-        "--vh-fixed",
-        `${window.innerHeight}px`,
-      );
-      ScrollTrigger.refresh();
-    };
-    setStableVh();
-    let resizeTimeout: ReturnType<typeof setTimeout>;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(setStableVh, 200);
-    };
-    window.addEventListener("orientationchange", setStableVh);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("orientationchange", setStableVh);
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(resizeTimeout);
-    };
-  }, []);
-
   useGSAP(
     () => {
+      ScrollTrigger.config({ ignoreMobileResize: true });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=2500",
+          end: () => "+=" + window.innerHeight * 2.5,
           pin: true,
           anticipatePin: 1,
           scrub: 0.2,
           fastScrollEnd: true,
           preventOverlaps: true,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -101,15 +77,19 @@ export default function Home() {
         stagger: 0.4,
         ease: "sine.inOut",
       });
+
+      const mizukiImg = document.querySelector('img[alt="Akiyama Mizuki"]');
+      if (mizukiImg instanceof HTMLImageElement && !mizukiImg.complete) {
+        mizukiImg.addEventListener("load", () => ScrollTrigger.refresh(), {
+          once: true,
+        });
+      }
     },
     { scope: containerRef },
   );
 
   return (
-    <main
-      style={{ minHeight: "var(--vh-fixed, 100dvh)" }}
-      className="bg-[#fffafd] text-pink-950 selection:bg-pink-300 selection:text-pink-950 font-sans"
-    >
+    <main className="min-h-svh bg-[#fffafd] text-pink-950 selection:bg-pink-300 selection:text-pink-950 font-sans">
       <SplashScreen />
 
       {/* TOMBOL GANTI BAHASA */}
@@ -123,8 +103,7 @@ export default function Home() {
 
       {/* 1. HERO SECTION */}
       <section
-        style={{ minHeight: "var(--vh-fixed, 100dvh)" }}
-        className="relative flex flex-col items-center justify-center text-center px-4 pt-10 overflow-hidden z-10"
+        className="relative min-h-svh flex flex-col items-center justify-center text-center px-4 pt-10 overflow-hidden z-10"
         id="home"
       >
         <div className="absolute inset-0 bg-[radial-gradient(#fbcfe8_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-70 -z-10"></div>
@@ -197,7 +176,7 @@ export default function Home() {
       <div className="bg-[#1a1116] w-full">
         <div
           ref={containerRef}
-          className="relative text-white w-full h-[100dvh] overflow-hidden"
+          className="relative text-white w-full h-svh overflow-hidden"
           style={{ willChange: "transform" }}
         >
           <div className="absolute inset-0 bg-[linear-gradient(rgba(244,114,182,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(244,114,182,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>

@@ -18,12 +18,26 @@ export default function SplashScreen() {
     }
   }, [index]);
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      const timer = setTimeout(() => {
+        document.body.style.removeProperty("overflow");
+      }, 650);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
+
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 2, ease: "easeInOut" } }}
+          exit={{
+            opacity: 0,
+            transition: { duration: 0.6, ease: "easeInOut" },
+          }}
           className="fixed inset-0 z-[999] flex items-center justify-center bg-[#fffafd] text-pink-950 pointer-events-none"
         >
           <AnimatePresence mode="wait">
