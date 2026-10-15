@@ -1,18 +1,44 @@
- @import "tailwindcss";
- @keyframes float {
-   0%, 100% { transform: translateY(0); }
-   50% { transform: translateY(-15px); }
- }
- 
- .animate-float {
-   animation: float 6s ease-in-out infinite;
- }
- 
- .animate-float-delayed {
-   animation: float 6s ease-in-out 3s infinite;
- }
- 
- html, body {
-   width: 100%;
-   overflow-x: hidden;
- }
+@import "tailwindcss";
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out 3s infinite;
+}
+
+.font-syncopate {
+  font-family: var(--font-syncopate), sans-serif;
+}
+
+.text-display-hero {
+  font-size: clamp(2.65rem, 7vw, 6.25rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+
+.text-display-section {
+  font-size: clamp(2.15rem, 4.8vw, 4rem);
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

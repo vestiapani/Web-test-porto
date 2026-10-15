@@ -1,66 +1,295 @@
 export const dict = {
   id: {
+    nav: {
+      home: "Home",
+      about: "About",
+      capabilities: "Capabilities",
+      projects: "Works",
+      contact: "Contact",
+    },
+    marquee: {
+      top: [
+        "FRONTEND DEVELOPER",
+        "EDITORIAL WEB EXPERIENCE",
+        "UNIVERSITAS PANCASILA",
+        "CELERATES SCHOOL",
+        "CREATIVE CODING",
+      ],
+      bottom: [
+        "SELECTED WORKS",
+        "MANGNIME PLATFORM",
+        "F1 PITWALL TELEMETRY",
+        "KANA MASTER",
+        "DESIGNED BY PANI",
+      ],
+    },
     hero: {
+      eyebrow: "CREATIVE DEVELOPER // PORTFOLIO",
       title1: "Dari Imajinasi",
       title2: "Menjadi Interaksi.",
-      desc: "Halo, gw Pani. Web developer yang suka ngoprek detail UI dan interaksi. Mari nerjemahin imajinasi lo jadi platform digital yang nggak cuma responsif, tapi juga ninggalin kesan.",
+      desc: "Halo, gw Pani. Web developer yang fokus merancang antarmuka editorial, detail UI, dan interaksi web modern yang meninggalkan kesan.",
       btn1: "Eksplorasi Karya",
       btn2: "Say Hi",
       scroll: "Scroll",
+      metaRole: "FOKUS // FRONTEND & UI/UX",
+      metaStatus: "STATUS // TERSEDIA UNTUK KOLABORASI",
     },
-    sticky: {
-      title1: "Kustomisasi Visual.",
-      desc1:
-        "Eksplorasi antarmuka dengan sentuhan estetika personal, memastikan setiap elemen memiliki karakter yang kuat.",
-      title2: "Interaksi Dinamis.",
-      desc2:
-        "Lebih dari sekadar tampilan visual. Membangun antarmuka yang komunikatif dan responsif terhadap setiap sentuhan, memastikan pengalaman navigasi yang mulus dan tidak membosankan.",
-      title3: "Kreativitas Bebas.",
-      desc3:
-        "Tidak sekadar menulis kode, tapi menerjemahkan ide dan kesukaan menjadi sebuah platform yang bisa dinikmati.",
+    about: {
+      index: "01 // IDENTITAS & KONTEKS",
+      badge: "TENTANG SAYA",
+      name: "Ivan Wirahadi Permana.",
+      headline:
+        "Merancang antarmuka yang memiliki karakter visual dan presisi teknis.",
+      bio: "Mahasiswa Teknik Informatika di Universitas Pancasila yang mendalami pengembangan frontend modern dan desain UI/UX. Saya menggabungkan estetika editorial, animasi yang terarah, dan arsitektur kode yang bersih.",
+      journeyTitle: "Perjalanan Akademik & Studi",
+      interestsTitle: "Eksplorasi & Minat",
+      interests: [
+        "Interactive Web Architecture",
+        "Telemetry & Sim-Racing UI",
+        "Japanese Visual Aesthetics",
+        "Design Systems & Motion",
+      ],
+      journey: [
+        {
+          role: "Web Dev & UI/UX Design",
+          date: "SEP 2026 — DES 2026",
+          place: "Celerates School (Independent Study)",
+          dot: "pink",
+        },
+        {
+          role: "Mahasiswa S1 Teknik Informatika",
+          date: "2024 — SEKARANG",
+          place: "Universitas Pancasila",
+          dot: "cyan",
+        },
+      ],
     },
-    skills: {
-      title: "Keahlian & Toolset.",
+    sticky: [
+      {
+        title: "Kustomisasi Visual.",
+        desc: "Eksplorasi antarmuka dengan sentuhan estetika personal, memastikan setiap elemen memiliki karakter yang kuat.",
+      },
+      {
+        title: "Interaksi Dinamis.",
+        desc: "Lebih dari sekadar tampilan visual. Membangun antarmuka yang komunikatif dan responsif terhadap setiap sentuhan, memastikan pengalaman navigasi yang mulus dan tidak membosankan.",
+      },
+      {
+        title: "Kreativitas Bebas.",
+        desc: "Tidak sekadar menulis kode, tapi menerjemahkan ide dan kesukaan menjadi sebuah platform yang bisa dinikmati.",
+      },
+    ],
+    capabilities: {
+      index: "02 // KAPABILITAS TEKNIS",
+      label: "Capabilities & Craft",
+      headline: "Merancang kanvas digital.",
+      quote:
+        "Memadukan estetika dengan fungsionalitas. Saya membangun aplikasi web yang tidak hanya bekerja mulus di balik layar, tetapi juga meninggalkan kesan visual yang kuat.",
+      list: [
+        {
+          num: "01",
+          title: "Front-end Development",
+          desc: "Membangun aplikasi web berbasis komponen yang skalabel, cepat, dan mudah dipelihara dengan ekosistem React dan Next.js.",
+          appliedIn: "Diterapkan pada MangNime & Kana Master",
+          tools: "React.js · Next.js · TypeScript · JavaScript",
+        },
+        {
+          num: "02",
+          title: "UI Implementation & Responsive Design",
+          desc: "Menerjemahkan sistem desain ke dalam layout responsif dan komposisi asimetris yang presisi di berbagai ukuran layar.",
+          appliedIn: "Diterapkan pada seluruh proyek portofolio",
+          tools: "Tailwind CSS · Shadcn-UI · Figma · CSS Grid",
+        },
+        {
+          num: "03",
+          title: "Interaction Design & Creative Coding",
+          desc: "Merancang scroll-driven storytelling, kinetic typography, dan microinteractions yang memperkuat narasi tanpa mengorbankan performa.",
+          appliedIn: "Diterapkan pada Web Porto & F1 PitWall HUD",
+          tools: "GSAP · Framer Motion · HTML5 Canvas",
+        },
+        {
+          num: "04",
+          title: "System & Backend Integration",
+          desc: "Menghubungkan antarmuka dengan komunikasi data real-time, database relasional, serta integrasi perangkat keras.",
+          appliedIn: "Diterapkan pada PitWall Telemetry & MangNime",
+          tools: "Node.js · Supabase · Electron · REST API · PostgreSQL",
+        },
+      ],
     },
     projects: {
+      index: "03 // SELECTED WORKS",
       title: "Karya & Eksplorasi.",
+      subtitle: "KOMPOSISI PROYEK PILIHAN & STUDI KASUS TEKNIS",
+      visitBtn: "Kunjungi Live",
+      caseStudyBtn: "Baca Studi Kasus",
+      closeBtn: "Tutup",
+      nextProject: "Proyek Berikutnya",
+      labels: {
+        role: "Peran",
+        year: "Tahun",
+        challenge: "Tantangan Utama",
+        approach: "Pendekatan Teknis & Desain",
+        outcome: "Hasil & Dampak",
+        tech: "Teknologi",
+      },
     },
     contact: {
+      index: "04 // TRANMISI AKHIR",
       title: "Mari Berkolaborasi.",
-      desc: "Tertarik buat ngobrol soal project atau sekedar say hi?",
-      btn: "Kirim Pesan",
+      desc: "Tertarik mendiskusikan proyek web interaktif, kolaborasi UI/UX, atau sekadar menyapa?",
+      btn: "Kirim Email",
+      githubBtn: "GitHub Profile",
+    },
+    footer: {
+      designedBy:
+        "Didesain dengan presisi editorial dan kesederhanaan oleh Pani.",
+      rights: "Hak Cipta Dilindungi.",
+      sub: "DESIGN BY PANI // INFLUENCED BY GFX",
     },
   },
   en: {
+    nav: {
+      home: "Home",
+      about: "About",
+      capabilities: "Capabilities",
+      projects: "Works",
+      contact: "Contact",
+    },
+    marquee: {
+      top: [
+        "FRONTEND DEVELOPER",
+        "EDITORIAL WEB EXPERIENCE",
+        "UNIVERSITAS PANCASILA",
+        "CELERATES SCHOOL",
+        "CREATIVE CODING",
+      ],
+      bottom: [
+        "SELECTED WORKS",
+        "MANGNIME PLATFORM",
+        "F1 PITWALL TELEMETRY",
+        "KANA MASTER",
+        "DESIGNED BY PANI",
+      ],
+    },
     hero: {
+      eyebrow: "CREATIVE DEVELOPER // PORTFOLIO",
       title1: "From Imagination",
       title2: "To Interaction.",
-      desc: "Hi, I'm Pani. A web developer who loves tweaking UI details and interactions. Let's translate your imagination into a digital platform that is not only responsive, but leaves an impression.",
+      desc: "Hi, I'm Pani. A web developer focused on crafting editorial interfaces, refined UI details, and interactive web experiences that leave a lasting impression.",
       btn1: "Explore Works",
       btn2: "Say Hi",
       scroll: "Scroll",
+      metaRole: "FOCUS // FRONTEND & UI/UX",
+      metaStatus: "STATUS // AVAILABLE FOR COLLABORATION",
     },
-    sticky: {
-      title1: "Visual Customization.",
-      desc1:
-        "Exploring interfaces with a personal aesthetic touch, ensuring every element has a strong character.",
-      title2: "Dynamic Interaction.",
-      desc2:
-        "More than just a visual display. Building communicative and responsive interfaces to every touch, ensuring a smooth navigation experience.",
-      title3: "Free Creativity.",
-      desc3:
-        "Not just writing code, but translating ideas and passions into a platform that can be enjoyed.",
+    about: {
+      index: "01 // IDENTITY & CONTEXT",
+      badge: "ABOUT ME",
+      name: "Ivan Wirahadi Permana.",
+      headline:
+        "Crafting digital interfaces with strong visual character and technical precision.",
+      bio: "An Informatics Engineering student at Universitas Pancasila specializing in modern frontend development and clean UI/UX design. I blend editorial art direction, purposeful motion, and maintainable code architecture.",
+      journeyTitle: "Academic & Study Journey",
+      interestsTitle: "Focus & Explorations",
+      interests: [
+        "Interactive Web Architecture",
+        "Telemetry & Sim-Racing UI",
+        "Japanese Visual Aesthetics",
+        "Design Systems & Motion",
+      ],
+      journey: [
+        {
+          role: "Web Dev & UI/UX Design",
+          date: "SEP 2026 — DEC 2026",
+          place: "Celerates School (Independent Study)",
+          dot: "pink",
+        },
+        {
+          role: "Undergraduate Student",
+          date: "2024 — PRESENT",
+          place: "Universitas Pancasila — B.Sc. in Informatics Engineering",
+          dot: "cyan",
+        },
+      ],
     },
-    skills: {
-      title: "Skills & Toolset.",
+    sticky: [
+      {
+        title: "Visual Customization.",
+        desc: "Exploring interfaces with a personal aesthetic touch, ensuring every element has a strong character.",
+      },
+      {
+        title: "Dynamic Interaction.",
+        desc: "More than just a visual display. Building communicative and responsive interfaces to every touch, ensuring a smooth navigation experience.",
+      },
+      {
+        title: "Free Creativity.",
+        desc: "Not just writing code, but translating ideas and passions into a platform that can be enjoyed.",
+      },
+    ],
+    capabilities: {
+      index: "02 // TECHNICAL CAPABILITIES",
+      label: "Capabilities & Craft",
+      headline: "Designing the digital canvas.",
+      quote:
+        "Blending aesthetics with functionality. I build web applications that not only work seamlessly under the hood but also leave a lasting visual impression.",
+      list: [
+        {
+          num: "01",
+          title: "Front-end Development",
+          desc: "Building scalable, performant, and maintainable component-driven web applications within the React and Next.js ecosystem.",
+          appliedIn: "Applied in MangNime & Kana Master",
+          tools: "React.js · Next.js · TypeScript · JavaScript",
+        },
+        {
+          num: "02",
+          title: "UI Implementation & Responsive Design",
+          desc: "Translating design direction into fluid typography, asymmetric grids, and accessible interfaces across all breakpoints.",
+          appliedIn: "Applied across all portfolio works",
+          tools: "Tailwind CSS · Shadcn-UI · Figma · CSS Grid",
+        },
+        {
+          num: "03",
+          title: "Interaction Design & Creative Coding",
+          desc: "Choreographing scroll-driven storytelling, kinetic typography, and tactile microinteractions that support narrative flow.",
+          appliedIn: "Applied in Portfolio & F1 PitWall HUD",
+          tools: "GSAP · Framer Motion · HTML5 Canvas",
+        },
+        {
+          num: "04",
+          title: "System & Backend Integration",
+          desc: "Bridging frontend interfaces with real-time telemetry streams, relational databases, and desktop hardware drivers.",
+          appliedIn: "Applied in PitWall Telemetry & MangNime",
+          tools: "Node.js · Supabase · Electron · REST API · PostgreSQL",
+        },
+      ],
     },
     projects: {
+      index: "03 // SELECTED WORKS",
       title: "Works & Exploration.",
+      subtitle: "CURATED PROJECT SHOWCASE & TECHNICAL CASE STUDIES",
+      visitBtn: "Visit Live",
+      caseStudyBtn: "Read Case Study",
+      closeBtn: "Close",
+      nextProject: "Next Project",
+      labels: {
+        role: "Role",
+        year: "Year",
+        challenge: "Main Challenge",
+        approach: "Technical & Design Approach",
+        outcome: "Verified Outcome",
+        tech: "Tech Stack",
+      },
     },
     contact: {
+      index: "04 // FINAL TRANSMISSION",
       title: "Let's Collaborate.",
-      desc: "Interested in chatting about a project or just saying hi?",
-      btn: "Send Message",
+      desc: "Interested in discussing an interactive web project, UI/UX collaboration, or just saying hi?",
+      btn: "Send Email",
+      githubBtn: "GitHub Profile",
+    },
+    footer: {
+      designedBy: "Designed with editorial precision and simplicity by Pani.",
+      rights: "All Rights Reserved.",
+      sub: "DESIGN BY PANI // INFLUENCED BY GFX",
     },
   },
 };

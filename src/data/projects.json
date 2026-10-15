@@ -1,26 +1,115 @@
 [
   {
     "id": "1",
-    "title": "MangNime Platform",
-    "description": "Platform streaming anime gratis tanpa iklan.",
-    "techStack": ["React JS","Next.js", "JavaScript", "Tailwind CSS","Supabase"],
+    "number": "01",
+    "year": "2026",
+    "category": "WEB PLATFORM",
+    "title": "MangNime",
+    "role": {
+      "id": "Creator & Lead Frontend Developer",
+      "en": "Creator & Lead Frontend Developer"
+    },
+    "description": {
+      "id": "Platform streaming anime terbaru dan pembaca komik digital (manga, manhwa, manhua) dengan antarmuka bersih bebas gangguan iklan.",
+      "en": "A modern anime streaming and digital comics reader (manga, manhwa, manhua) engineered with an ad-free editorial interface."
+    },
+    "caseStudy": {
+      "challenge": {
+        "id": "Menyajikan ribuan katalog episode dan chapter komik dengan waktu muat instan tanpa mengorbankan kenyamanan navigasi di perangkat mobile.",
+        "en": "Delivering thousands of anime episodes and comic chapters with instant load times while maintaining an intuitive mobile reading experience."
+      },
+      "approach": {
+        "id": "Membangun arsitektur Next.js dengan manajemen state yang efisien, integrasi REST API teroptimasi, serta penyimpanan autentikasi dan bookmark real-time menggunakan Supabase.",
+        "en": "Architected with Next.js using optimized REST API fetching, responsive reader viewports, and real-time user bookmark synchronization via Supabase."
+      },
+      "outcome": {
+        "id": "Terpublikasi secara penuh di domain kustom mangnime.my.id dengan waktu transisi halaman yang mulus dan peningkatan retensi baca.",
+        "en": "Successfully deployed on custom domain mangnime.my.id featuring seamless episode switching and a distraction-free reading mode."
+      }
+    },
+    "techStack": [
+      "React",
+      "Next.js",
+      "JavaScript",
+      "Tailwind CSS",
+      "REST API",
+      "Supabase"
+    ],
     "imageUrl": "/images/Mangnime.png",
-    "link": "https://mangnime.my.id"
+    "link": "https://mangnime.my.id",
+    "accent": "pink"
   },
   {
     "id": "2",
-    "title": "Kana Master",
-    "description": "Tempat belajar bahasa jepang tingkat dasar.",
-    "techStack": ["React JS", "Typescipt", "Shadcn-UI","Lucide-Icons"],
-    "imageUrl": "/images/Kana Master.png",
-    "link": "https://kana-master-ten.vercel.app/"
+    "number": "02",
+    "year": "2026",
+    "category": "TELEMETRY & HARDWARE CONTROL",
+    "title": "PitWall",
+    "role": {
+      "id": "System Architect & UI Engineer",
+      "en": "System Architect & UI Engineer"
+    },
+    "description": {
+      "id": "Dasbor telemetri balap F1 real-time sekaligus pengubah smartphone menjadi kontroler setir presisi rendah latensi.",
+      "en": "Real-time F1 racing telemetry dashboard and low-latency mobile steering controller for desktop racing simulations."
+    },
+    "caseStudy": {
+      "challenge": {
+        "id": "Menjaga sinkronisasi paket data UDP telemetri dari game F1 dan input giroskop smartphone agar tetap berjalan di bawah latensi 16ms.",
+        "en": "Maintaining sub-16ms latency between F1 game UDP telemetry packets and mobile gyroscope steering inputs."
+      },
+      "approach": {
+        "id": "Mengembangkan aplikasi desktop berbasis Electron dan Node.js yang terhubung ke driver virtual ViGEmBus, dipadukan dengan UI berkecepatan tinggi.",
+        "en": "Built an Electron and Node.js desktop bridge connected to ViGEmBus virtual controller drivers paired with a high-contrast telemetry HUD."
+      },
+      "outcome": {
+        "id": "Menghadirkan pengalaman sim-racing presisi tinggi hanya bermodalkan smartphone dan PC tanpa perangkat steering wheel fisik.",
+        "en": "Enabled accurate sim-racing wheel control and live lap telemetry tracking using only a smartphone and PC."
+      }
+    },
+    "techStack": [
+      "Node.js",
+      "Electron",
+      "ViGEmBus",
+      "JavaScript",
+      "Gradle",
+      "Tailwind CSS"
+    ],
+    "imageUrl": "/images/PitWall.png",
+    "link": "https://racingpitwall.vercel.app/",
+    "accent": "cyan"
   },
   {
     "id": "3",
-    "title": "F1 Pitwall + Steering Wheel",
-    "description": "Aplikasi untuk melihat data telemtry game F1 dan kontrol dengan smartphone.",
-    "techStack": ["JavaScript","VigemBus","Grandle","Electron","Node.js", "Tailwind CSS"],
-    "imageUrl": "/images/PitWall.png",
-    "link": "https://racingpitwall.vercel.app/"
+    "number": "03",
+    "year": "2025",
+    "category": "INTERACTIVE EDUCATION",
+    "title": "Kana Master",
+    "role": {
+      "id": "Frontend & Interaction Designer",
+      "en": "Frontend & Interaction Designer"
+    },
+    "description": {
+      "id": "Aplikasi pembelajaran aksara Jepang (Hiragana & Katakana) berbasis latihan interaktif dan umpan balik visual instan.",
+      "en": "Interactive Japanese script learning platform (Hiragana & Katakana) driven by instant visual feedback and micro-quizzes."
+    },
+    "caseStudy": {
+      "challenge": {
+        "id": "Mengubah metode menghafal huruf Hiragana dan Katakana yang monoton menjadi pengalaman belajar interaktif yang tidak membosankan.",
+        "en": "Transforming repetitive Hiragana and Katakana memorization into an engaging, game-like web experience."
+      },
+      "approach": {
+        "id": "Menerapkan TypeScript dan komponen Shadcn-UI dengan sistem kuis progresif, pelacakan akurasi real-time, dan tipografi Jepang yang jelas.",
+        "en": "Engineered with React and TypeScript using Shadcn-UI primitives, progressive quiz states, and high-legibility Japanese typography."
+      },
+      "outcome": {
+        "id": "Digunakan sebagai media latihan mandiri untuk penguasaan karakter dasar bahasa Jepang setara level pengantar CEFR A1.",
+        "en": "Provides an intuitive self-paced practice environment supporting foundational CEFR A1 Japanese literacy."
+      }
+    },
+    "techStack": ["React.js", "TypeScript", "Shadcn-UI", "Lucide-Icons"],
+    "imageUrl": "/images/Kana Master.png",
+    "link": "https://kana-master-ten.vercel.app/",
+    "accent": "purple"
   }
 ]
