@@ -1,8 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence, useDragControls } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+} from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight, BookOpen, X, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -58,8 +63,16 @@ const accentMap = {
 export default function ProjectCard({ projects }: { projects: ProjectItem[] }) {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
-  const dragControls = useDragControls();
   const { lang, t } = useLanguage();
+
+  const pullY = useMotionValue(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const dragState = useRef({
+    active: false,
+    fromHeader: false,
+    startY: 0,
+    startTime: 0,
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -67,6 +80,10 @@ export default function ProjectCard({ projects }: { projects: ProjectItem[] }) {
 
   useEffect(() => {
     if (selectedIdx !== null) {
+      pullY.set(0);
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = 0;
+      }
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.removeProperty("overflow");
@@ -74,13 +91,78 @@ export default function ProjectCard({ projects }: { projects: ProjectItem[] }) {
     return () => {
       document.body.style.removeProperty("overflow");
     };
-  }, [selectedIdx]);
+  }, [selectedIdx, pullY]);
 
   const activeCase = selectedIdx !== null ? projects[selectedIdx] : null;
 
   const handleNextProject = () => {
     if (selectedIdx === null) return;
     setSelectedIdx((selectedIdx + 1) % projects.length);
+  };
+
+  const startPull = (clientY: number, fromHeader = false) => {
+    const atTop = !scrollRef.current || scrollRef.current.scrollTop <= 0;
+    dragState.current = {
+      active: fromHeader || atTop,
+      fromHeader,
+      startY: clientY,
+      startTime: Date.now(),
+    };
+  };
+
+  const movePull = (
+    clientY: number,
+    touchEvent?: React.TouchEvent<HTMLDivElement>,
+  ) => {
+    const scrollEl = scrollRef.current;
+    const atTop = !scrollEl || scrollEl.scrollTop <= 0;
+
+    if (!dragState.current.active && atTop && !dragState.current.fromHeader) {
+      dragState.current = {
+        active: true,
+        fromHeader: false,
+        startY: clientY,
+        startTime: Date.now(),
+      };
+    }
+
+    if (!dragState.current.active) return;
+
+    if (!dragState.current.fromHeader && !atTop) {
+      dragState.current.active = false;
+      pullY.set(0);
+      return;
+    }
+
+    const deltaY = clientY - dragState.current.startY;
+
+    if (deltaY > 0) {
+      if (touchEvent?.cancelable) {
+        touchEvent.preventDefault();
+      }
+      pullY.set(deltaY * 0.85);
+    } else {
+      pullY.set(0);
+    }
+  };
+
+  const endPull = () => {
+    if (!dragState.current.active) return;
+    dragState.current.active = false;
+
+    const currentPull = pullY.get();
+    const elapsed = Math.max(1, Date.now() - dragState.current.startTime);
+    const velocity = currentPull / elapsed;
+
+    if (currentPull > 80 || (currentPull > 30 && velocity > 0.45)) {
+      setSelectedIdx(null);
+    } else {
+      animate(pullY, 0, {
+        type: "spring",
+        stiffness: 400,
+        damping: 35,
+      });
+    }
   };
 
   return (
@@ -229,7 +311,7 @@ export default function ProjectCard({ projects }: { projects: ProjectItem[] }) {
         })}
       </div>
 
-      {/* PORTAL KE DOCUMENT.BODY AGAR TIDAK TERTUTUP FOOTER / SECTION LAIN */}
+      {/* PORTAL MODAL / BOTTOM SHEET KE DOCUMENT.BODY */}
       {mounted &&
         createPortal(
           <AnimatePresence>
@@ -245,170 +327,183 @@ export default function ProjectCard({ projects }: { projects: ProjectItem[] }) {
                 onClick={() => setSelectedIdx(null)}
               >
                 <motion.div
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="case-study-title"
-                  drag="y"
-                  dragControls={dragControls}
-                  dragListener={false}
-                  dragConstraints={{ top: 0, bottom: 0 }}
-                  dragElastic={{ top: 0, bottom: 0.75 }}
-                  onDragEnd={(_, info) => {
-                    if (info.offset.y > 90 || info.velocity.y > 400) {
-                      setSelectedIdx(null);
-                    }
-                  }}
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
                   exit={{ y: "100%" }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   onClick={(e) => e.stopPropagation()}
-                  className="
-                    relative w-full max-w-4xl max-h-[88dvh] md:max-h-[90vh]
-                    flex flex-col rounded-t-3xl md:rounded-3xl
-                    bg-[#fffafd] text-pink-950 border border-pink-200
-                    shadow-2xl overflow-hidden
-                  "
+                  className="w-full max-w-4xl flex justify-center"
                 >
-                  {/* 1. STICKY HEADER + DRAG HANDLE AREA */}
-                  <div
-                    onPointerDown={(e) => dragControls.start(e)}
+                  <motion.div
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="case-study-title"
+                    style={{ y: pullY }}
                     className="
-                      sticky top-0 z-30 bg-[#fffafd]/95 backdrop-blur-md
-                      border-b border-pink-950/10 px-5 pt-3 pb-3.5
-                      md:px-10 md:py-5 shrink-0 touch-none
-                      cursor-grab active:cursor-grabbing md:cursor-default
+                      relative w-full max-h-[88dvh] md:max-h-[90vh]
+                      flex flex-col rounded-t-3xl md:rounded-3xl
+                      bg-[#fffafd] text-pink-950 border border-pink-200
+                      shadow-2xl overflow-hidden
                     "
                   >
-                    {/* Garis Handle Slide Down di Mobile */}
-                    <div className="w-12 h-1.5 rounded-full bg-pink-950/25 mx-auto mb-3 md:hidden" />
+                    {/* 1. STICKY HEADER BAR */}
+                    <div
+                      onTouchStart={(e) =>
+                        startPull(e.touches[0].clientY, true)
+                      }
+                      onTouchMove={(e) => movePull(e.touches[0].clientY, e)}
+                      onTouchEnd={endPull}
+                      onMouseDown={(e) => startPull(e.clientY, true)}
+                      onMouseMove={(e) => {
+                        if (e.buttons === 1) movePull(e.clientY);
+                      }}
+                      onMouseUp={endPull}
+                      className="
+                        sticky top-0 z-30 bg-[#fffafd]/95 backdrop-blur-md
+                        border-b border-pink-950/10 px-5 pt-3 pb-3.5
+                        md:px-10 md:py-5 shrink-0 touch-none select-none
+                        cursor-grab active:cursor-grabbing md:cursor-default
+                      "
+                    >
+                      <div className="w-12 h-1.5 rounded-full bg-pink-950/25 mx-auto mb-3 md:hidden" />
 
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-pink-600 truncate">
-                        [{activeCase.number}] // {activeCase.category}
-                      </span>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-pink-600 truncate">
+                          [{activeCase.number}] // {activeCase.category}
+                        </span>
 
-                      {/* Tombol Tutup hanya tampil di Desktop (md ke atas) */}
-                      <button
-                        type="button"
-                        onClick={() => setSelectedIdx(null)}
+                        <button
+                          type="button"
+                          onClick={() => setSelectedIdx(null)}
+                          className="
+                            hidden md:inline-flex items-center gap-1.5
+                            px-3.5 py-1.5 rounded-full bg-pink-100 text-pink-950
+                            font-mono text-xs font-bold uppercase tracking-wider
+                            hover:bg-pink-200 transition-colors cursor-pointer shrink-0
+                          "
+                        >
+                          <X size={15} />
+                          <span>{t.projects.closeBtn}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 2. AREA KONTEN SCROLLABLE */}
+                    <div
+                      ref={scrollRef}
+                      onTouchStart={(e) =>
+                        startPull(e.touches[0].clientY, false)
+                      }
+                      onTouchMove={(e) => movePull(e.touches[0].clientY, e)}
+                      onTouchEnd={endPull}
+                      className="
+                        overflow-y-auto overscroll-y-none
+                        px-5 py-6 md:px-10 md:py-8 space-y-6 md:space-y-8
+                      "
+                    >
+                      <div>
+                        <h2
+                          id="case-study-title"
+                          className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-pink-950 mb-2"
+                        >
+                          {activeCase.title}
+                        </h2>
+                        <p className="font-mono text-[11px] text-pink-600 uppercase tracking-wider mb-3">
+                          {activeCase.role[lang]} · {activeCase.year}
+                        </p>
+                        <p className="text-sm md:text-lg text-pink-950/75 leading-relaxed">
+                          {activeCase.description[lang]}
+                        </p>
+                      </div>
+
+                      <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-pink-200 bg-pink-950/5">
+                        <Image
+                          src={activeCase.imageUrl}
+                          alt={activeCase.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        <div className="pl-4 border-l-4 border-[#ffb7c5] md:p-5 md:rounded-2xl md:bg-white md:border md:border-pink-100">
+                          <span className="font-syncopate text-[10px] tracking-[0.2em] uppercase text-pink-500 font-bold block mb-1.5">
+                            01 // {t.projects.labels.challenge}
+                          </span>
+                          <p className="text-xs md:text-sm text-pink-950/80 leading-relaxed">
+                            {activeCase.caseStudy.challenge[lang]}
+                          </p>
+                        </div>
+
+                        <div className="pl-4 border-l-4 border-[#a2e4f5] md:p-5 md:rounded-2xl md:bg-white md:border md:border-pink-100">
+                          <span className="font-syncopate text-[10px] tracking-[0.2em] uppercase text-sky-500 font-bold block mb-1.5">
+                            02 // {t.projects.labels.approach}
+                          </span>
+                          <p className="text-xs md:text-sm text-pink-950/80 leading-relaxed">
+                            {activeCase.caseStudy.approach[lang]}
+                          </p>
+                        </div>
+
+                        <div className="pl-4 border-l-4 border-[#e2d1f9] md:p-5 md:rounded-2xl md:bg-white md:border md:border-pink-100">
+                          <span className="font-syncopate text-[10px] tracking-[0.2em] uppercase text-purple-500 font-bold block mb-1.5">
+                            03 // {t.projects.labels.outcome}
+                          </span>
+                          <p className="text-xs md:text-sm text-pink-950/80 leading-relaxed">
+                            {activeCase.caseStudy.outcome[lang]}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-pink-900/50 block mb-2">
+                          // {t.projects.labels.tech}
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {activeCase.techStack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2.5 py-1 rounded-md bg-pink-50 border border-pink-200/70 font-mono text-[11px] text-pink-900"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 3. STICKY BOTTOM ACTION BAR */}
+                    <div className="sticky bottom-0 z-30 bg-white/95 backdrop-blur-md border-t border-pink-950/10 px-5 py-3.5 md:px-10 md:py-4 shrink-0 flex items-center justify-between gap-3">
+                      <a
+                        href={activeCase.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="
-                          hidden md:inline-flex items-center gap-1.5
-                          px-3.5 py-1.5 rounded-full bg-pink-100 text-pink-950
-                          font-mono text-xs font-bold uppercase tracking-wider
-                          hover:bg-pink-200 transition-colors cursor-pointer shrink-0
+                          flex-1 md:flex-initial inline-flex items-center justify-center
+                          gap-2 px-5 py-3 rounded-full bg-pink-500 text-white
+                          font-syncopate text-[10px] md:text-xs font-bold
+                          tracking-widest uppercase hover:bg-pink-600 transition-colors
                         "
                       >
-                        <X size={15} />
-                        <span>{t.projects.closeBtn}</span>
+                        <span>{t.projects.visitBtn}</span>
+                        <ArrowUpRight size={15} />
+                      </a>
+
+                      <button
+                        type="button"
+                        onClick={handleNextProject}
+                        className="
+                          flex-1 md:flex-initial inline-flex items-center justify-center
+                          gap-2 px-5 py-3 rounded-full bg-[#1a1116] text-pink-100
+                          font-syncopate text-[10px] md:text-xs font-bold
+                          tracking-widest uppercase hover:bg-pink-950 transition-colors
+                          cursor-pointer
+                        "
+                      >
+                        <span>{t.projects.nextProject}</span>
+                        <ArrowRight size={15} />
                       </button>
                     </div>
-                  </div>
-
-                  {/* 2. AREA KONTEN SCROLLABLE */}
-                  <div className="overflow-y-auto px-5 py-6 md:px-10 md:py-8 space-y-6 md:space-y-8">
-                    <div>
-                      <h2
-                        id="case-study-title"
-                        className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-pink-950 mb-2"
-                      >
-                        {activeCase.title}
-                      </h2>
-                      <p className="font-mono text-[11px] text-pink-600 uppercase tracking-wider mb-3">
-                        {activeCase.role[lang]} · {activeCase.year}
-                      </p>
-                      <p className="text-sm md:text-lg text-pink-950/75 leading-relaxed">
-                        {activeCase.description[lang]}
-                      </p>
-                    </div>
-
-                    <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-pink-200 bg-pink-950/5">
-                      <Image
-                        src={activeCase.imageUrl}
-                        alt={activeCase.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                      <div className="pl-4 border-l-4 border-[#ffb7c5] md:p-5 md:rounded-2xl md:bg-white md:border md:border-pink-100">
-                        <span className="font-syncopate text-[10px] tracking-[0.2em] uppercase text-pink-500 font-bold block mb-1.5">
-                          01 // {t.projects.labels.challenge}
-                        </span>
-                        <p className="text-xs md:text-sm text-pink-950/80 leading-relaxed">
-                          {activeCase.caseStudy.challenge[lang]}
-                        </p>
-                      </div>
-
-                      <div className="pl-4 border-l-4 border-[#a2e4f5] md:p-5 md:rounded-2xl md:bg-white md:border md:border-pink-100">
-                        <span className="font-syncopate text-[10px] tracking-[0.2em] uppercase text-sky-500 font-bold block mb-1.5">
-                          02 // {t.projects.labels.approach}
-                        </span>
-                        <p className="text-xs md:text-sm text-pink-950/80 leading-relaxed">
-                          {activeCase.caseStudy.approach[lang]}
-                        </p>
-                      </div>
-
-                      <div className="pl-4 border-l-4 border-[#e2d1f9] md:p-5 md:rounded-2xl md:bg-white md:border md:border-pink-100">
-                        <span className="font-syncopate text-[10px] tracking-[0.2em] uppercase text-purple-500 font-bold block mb-1.5">
-                          03 // {t.projects.labels.outcome}
-                        </span>
-                        <p className="text-xs md:text-sm text-pink-950/80 leading-relaxed">
-                          {activeCase.caseStudy.outcome[lang]}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-pink-900/50 block mb-2">
-                        // {t.projects.labels.tech}
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {activeCase.techStack.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 rounded-md bg-pink-50 border border-pink-200/70 font-mono text-[11px] text-pink-900"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 3. STICKY BOTTOM ACTION BAR */}
-                  <div className="sticky bottom-0 z-30 bg-white/95 backdrop-blur-md border-t border-pink-950/10 px-5 py-3.5 md:px-10 md:py-4 shrink-0 flex items-center justify-between gap-3">
-                    <a
-                      href={activeCase.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                        flex-1 md:flex-initial inline-flex items-center justify-center
-                        gap-2 px-5 py-3 rounded-full bg-pink-500 text-white
-                        font-syncopate text-[10px] md:text-xs font-bold
-                        tracking-widest uppercase hover:bg-pink-600 transition-colors
-                      "
-                    >
-                      <span>{t.projects.visitBtn}</span>
-                      <ArrowUpRight size={15} />
-                    </a>
-
-                    <button
-                      type="button"
-                      onClick={handleNextProject}
-                      className="
-                        flex-1 md:flex-initial inline-flex items-center justify-center
-                        gap-2 px-5 py-3 rounded-full bg-[#1a1116] text-pink-100
-                        font-syncopate text-[10px] md:text-xs font-bold
-                        tracking-widest uppercase hover:bg-pink-950 transition-colors
-                        cursor-pointer
-                      "
-                    >
-                      <span>{t.projects.nextProject}</span>
-                      <ArrowRight size={15} />
-                    </button>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             )}
